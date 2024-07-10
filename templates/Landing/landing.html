@@ -1,0 +1,22 @@
+{% extends 'base_landing.html' %}
+{% load static %} 
+<title>Home {% block title %}
+    {% endblock %}
+</title>
+
+{% block container %}
+<div class="row justify-content-center">
+    <div class="col-lg-8 col-sm-10">
+        <div class="text-center">
+            <h1 class="display-4 fw-medium mb-4 lh-base text-white">Expense tracking and reimbursement<span class="text-success"> Ensures finacial accountability.</span></h1>
+            <p class="lead text-white-50 lh-base mb-4 pb-2">These processes involve 
+                the detailed recording, monitoring, and timely reimbursement of expenses incurred.</p>
+
+            <div class="hstack gap-2 justify-content-center">
+                <a href="{% url 'index' %}" class="btn btn-primary">Create One <i class="ri-arrow-right-line align-middle ms-1"></i></a>
+                <a href="{% url 'index' %}" class="btn btn-danger">Explore Now <i class="ri-arrow-right-line align-middle ms-1"></i></a>
+            </div>
+        </div>
+    </div><!--end col-->
+</div><!-- end row -->
+{% endblock container %}
