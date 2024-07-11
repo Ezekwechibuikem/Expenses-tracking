@@ -1,8 +1,43 @@
 import os
 from pathlib import Path
+from whitenoise.storage import CompressedManifestStaticFilesStorage
+import re
+
+class WhiteNoiseStaticFilesStorage(CompressedManifestStaticFilesStorage):
+    ignored_files = [
+        re.compile(r'^assets/fonts/HKGrostesk.*'),
+        re.compile(r'^assets/fonts/hkgrotesk.*'),
+        re.compile(r'^assets/css/app\.min\.css$'),
+    ]
+
+    def hashed_name(self, name, content=None, filename=None):
+        # Ignore files in the ignored_files list
+        for ignored in self.ignored_files:
+            if ignored.match(name):
+                return name
+        
+        # Process images only from your specific folder
+        if name.startswith('assets/images/'):
+            return super().hashed_name(name, content, filename)
+        
+        # For other image files, return the original name without processing
+        if name.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.svg')):
+            return name
+        
+        # Process other files normally
+        return super().hashed_name(name, content, filename)
+    
+    def post_process(self, *args, **kwargs):
+        files = super().post_process(*args, **kwargs)
+        for name, hashed_name, processed in files:
+            if not name.endswith('app.min.css'):
+                yield name, hashed_name, processed
+
+#WHITENOISE_EXCLUDE_PATHS = ['/assets/css/app.min.css']
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -12,9 +47,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$-(s*^93$^1v1cq-pb6ef4f(euz^)vyrebiieh3_q17qbtsbj!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app']
 
 
 # Application definition
@@ -32,6 +67,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -71,7 +107,7 @@ DATABASES = {
         'USER': 'postgres',      
         'PASSWORD': 'P@ssw0rd',  
         'HOST': 'localhost',              
-        'PORT': '8080',                  
+        'PORT': '5432',                  
     }
 }
 
@@ -111,8 +147,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static", "assets", "libs")
+]
+
+#STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'System.settings.WhiteNoiseStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
