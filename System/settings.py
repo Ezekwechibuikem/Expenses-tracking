@@ -1,4 +1,6 @@
 import os
+import dj_database_url
+from decouple import config
 from pathlib import Path
 from whitenoise.storage import CompressedManifestStaticFilesStorage
 import re
@@ -109,6 +111,12 @@ DATABASES = {
         'HOST': 'localhost',              
         'PORT': '5432',                  
     }
+}
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 }
 
 AUTHENTICATION_BACKENDS = [
