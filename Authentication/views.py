@@ -14,7 +14,7 @@ def register(request):
         if form.is_valid():
             user = form.save()
             login(request, user)  
-            return redirect('home')  
+            return redirect('sucess')  
     else:
         form = CustomUserCreationForm()
     return render(request, 'Authentication/sign_up.html', {'form': form})
