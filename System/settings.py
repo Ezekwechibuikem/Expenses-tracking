@@ -4,6 +4,7 @@ from decouple import config
 from pathlib import Path
 from whitenoise.storage import CompressedManifestStaticFilesStorage
 import re
+import dotenv
 
 class WhiteNoiseStaticFilesStorage(CompressedManifestStaticFilesStorage):
     ignored_files = [
@@ -41,12 +42,15 @@ class WhiteNoiseStaticFilesStorage(CompressedManifestStaticFilesStorage):
 #BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+dotenv_file = os.path.join(BASE_DIR, ".env")
+if os.path.isfile(dotenv_file):
+    dotenv.load_dotenv(dotenv_file )
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-$-(s*^93$^1v1cq-pb6ef4f(euz^)vyrebiieh3_q17qbtsbj!'
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -99,23 +103,24 @@ TEMPLATES = [
 WSGI_APPLICATION = 'System.wsgi.application'
 AUTH_USER_MODEL = 'Authentication.User'
 
-# Database
+# Database settings
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ExpenseDB',     
-        'USER': 'postgres',      
-        'PASSWORD': 'P@ssw0rd',  
-        'HOST': 'localhost',              
-        'PORT': '5432',                  
+        'ENGINE': os.environ["ENGINE"],
+        'NAME': os.environ["NAME"],  
+        'USER': os.environ["USER"],     
+        'PASSWORD': os.environ["PASSWORD"],  
+        'HOST': os.environ["PORT"],       
+        'PORT': os.environ["HOST"],                  
     }
 }
 
 DATABASES = {
     'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))
 }
+
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
