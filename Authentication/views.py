@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, get_user_model
 from .forms import CustomUserCreationForm
+
 
 
 class signin(View):
@@ -32,3 +33,11 @@ class sucess(View):
     def get(self, request):
         return render(request, 'Authentication/sucess.html')
     
+User = get_user_model()
+
+def test_db(request):
+    try:
+        user_count = User.objects.count()
+        return HttpResponse(f"Database connected. User count: {user_count}")
+    except Exception as e:
+        return HttpResponse(f"Database error: {str(e)}")
