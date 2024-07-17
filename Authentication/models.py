@@ -34,6 +34,19 @@ class User(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(default=timezone.now)
     last_login = models.DateTimeField(blank=True, null=True)
 
+    ROLE_CHOICES = (
+        ('super-admin', 'Super-Admin'),
+        ('admin', 'Admin'),
+        ('finance', 'Finance'),
+        ('supervisor', 'Supervisor'),
+        ('staff', 'Staff'),
+    )
+    
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='super-admin')
+    supervisor = models.CharField(max_length=255, blank=True, null=True, default='Chibuikem')
+    department = models.CharField(max_length=155, blank=True, null=True, default='Developer')
+    unit = models.CharField(max_length=155, blank=True, null=True, default='HI')
+    
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'

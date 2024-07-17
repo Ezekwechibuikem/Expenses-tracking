@@ -19,29 +19,79 @@
                         {% csrf_token %}
                         <div class="mb-3">
                             <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address" required>
+                            <input type="email" class="form-control" id="id_email" name="email" placeholder="Enter email address" required>
                             <div class="invalid-feedback">
                                 Please enter email
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="username" class="form-label">Full Name <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter full name" required>
+                            <label for="fullname" class="form-label">Full Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="id_fullname" name="fullname" placeholder="Enter full name" required>
                             <div class="invalid-feedback">
                                 Please enter full name
                             </div>
                         </div> 
 
                         <div class="mb-3">
-                            <label class="form-label" for="password-input">Password</label>
+                            <label class="form-label" for="password-input">Password <span class="text-danger">*</span></label>
                             <div class="position-relative auth-pass-inputgroup">
-                                <input type="password" class="form-control pe-5 password-input" onpaste="return false" placeholder="Enter password" id="password" name="password1" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                <input type="password" class="form-control pe-5 password-input" onpaste="return false" placeholder="Enter password" id="id_password1" name="password1" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                                 <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon material-shadow-none" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                 <div class="invalid-feedback">
                                     Please enter password
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label" for="password-input"> Confirm Password <span class="text-danger">*</span></label>
+                            <div class="position-relative auth-pass-inputgroup">
+                                <input type="password" class="form-control pe-5 password-input" onpaste="return false" placeholder="Confirm password" id="id_password2" name="password2" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon material-shadow-none" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                <div class="invalid-feedback">
+                                    Please Check password
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_role" class="form-label">Role <span class="text-danger">*</span></label>
+                            <select class="form-select" id="id_role" name="role" required>
+                                <option value="" selected disabled>Select a role</option>
+                                <option value="admin">Admin</option>
+                                <option value="finance">Finance</option>
+                                <option value="Supervisor">Supervisor</option>
+                                <option value="staff">Staff</option>
+                                <option value="super-admin">Super-Admin</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a role
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="supervisor" class="form-label">Supervisor's Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="id_supervisor" name="supervisor" placeholder="Enter Supervisor's Name" required>
+                            <div class="invalid-feedback">
+                                Please enter Supervisor's Name
+                            </div>
+                        </div> 
+
+                        <div class="mb-3">
+                            <label for="department" class="form-label">Department <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="id_department" name="department" placeholder="Enter Department Name" required>
+                            <div class="invalid-feedback">
+                                Please enter Department Name
+                            </div>
+                        </div> 
+
+                        <div class="mb-3">
+                            <label for="unit" class="form-label">Unit <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="id_unit" name="unit" placeholder="Enter Unit Name" required>
+                            <div class="invalid-feedback">
+                                Please enter Unit Name
+                            </div>
+                        </div> 
 
                         <div class="mb-4">
                             <p class="mb-0 fs-12 text-muted fst-italic">By registering you agree to the organization <a href="#" class="text-primary text-decoration-underline fst-normal fw-medium">Terms of Use</a></p>
@@ -58,19 +108,7 @@
                         <div class="mt-4">
                             <button class="btn btn-success w-100" type="submit">Sign Up</button>
                         </div>
-
-                        <div class="mt-4 text-center">
-                            <div class="signin-other-title">
-                                <h5 class="fs-13 mb-4 title text-muted">Create account with</h5>
-                            </div>
-
-                            <div>
-                                <button type="button" class="btn btn-primary btn-icon waves-effect waves-light"><i class="ri-facebook-fill fs-16"></i></button>
-                                <button type="button" class="btn btn-danger btn-icon waves-effect waves-light"><i class="ri-google-fill fs-16"></i></button>
-                                <button type="button" class="btn btn-dark btn-icon waves-effect waves-light"><i class="ri-github-fill fs-16"></i></button>
-                                <button type="button" class="btn btn-info btn-icon waves-effect waves-light"><i class="ri-twitter-fill fs-16"></i></button>
-                            </div>
-                        </div>
+                        
                     </form>
 
                 </div>
@@ -78,11 +116,6 @@
             <!-- end card body -->
         </div>
         <!-- end card -->
-
-        <div class="mt-4 text-center">
-            <p class="mb-0">Already have an account ? <a href="{% url 'signin' %}" class="fw-semibold text-primary text-decoration-underline"> Signin </a> </p>
-        </div>
-
     </div>
 </div>
 <!-- end row -->

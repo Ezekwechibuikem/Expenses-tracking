@@ -3,8 +3,6 @@ from django.views import View
 from django.contrib.auth import login, authenticate, get_user_model
 from .forms import CustomUserCreationForm
 
-
-
 class signin(View):
     def get(self, request):
         return render(request, 'Authentication/sign_in.html')
@@ -13,8 +11,9 @@ def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)  
+            user = form.save(commit=False)
+            user.role = form.cleaned_data['role']
+            user.save()
             return redirect('success')  
     else:
         form = CustomUserCreationForm()
