@@ -38,11 +38,11 @@
     <div id="layout-wrapper">
         <header id="page-topbar">
             {% include 'Partial/navbar.html' %}
-        </header> 
-        
+        </header>
+
         <div class="app-menu navbar-menu">
             {% include 'Partial/sidebar.html' %}
-        </div> 
+        </div>
          <!-- Left Sidebar End -->
         <!-- Vertical Overlay-->
         <div class="vertical-overlay"></div>
@@ -60,7 +60,7 @@
              <!-- End Page-content -->
             <footer class="footer">
                 {% include 'Partial/footer.html' %}
-            </footer> 
+            </footer>
         </div>
     </div>
     <!-- END layout-wrapper -->
@@ -68,7 +68,7 @@
     <!--start back-to-top-->
      <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
         <i class="ri-arrow-up-line"></i>
-    </button> 
+    </button>
     <!--end back-to-top-->
 
     <!--preloader-->
@@ -78,13 +78,13 @@
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
-    </div> 
+    </div>
 
-    <div class="customizer-setting d-none d-md-block">
+    {% comment %} <div class="customizer-setting d-none d-md-block">
         <div class="btn-info rounded-pill shadow-lg btn btn-icon btn-lg p-2" data-bs-toggle="offcanvas" data-bs-target="#theme-settings-offcanvas" aria-controls="theme-settings-offcanvas">
             <i class='mdi mdi-spin mdi-cog-outline fs-22'></i>
         </div>
-    </div> 
+    </div> {% endcomment %}
 
     <!-- JAVASCRIPT -->
 
