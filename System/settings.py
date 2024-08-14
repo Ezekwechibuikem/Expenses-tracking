@@ -5,7 +5,7 @@ from pathlib import Path
 from whitenoise.storage import CompressedManifestStaticFilesStorage
 import re
 import dotenv
-
+ 
 class WhiteNoiseStaticFilesStorage(CompressedManifestStaticFilesStorage):
     ignored_files = [
         re.compile(r'^assets/fonts/HKGrostesk.*'),
